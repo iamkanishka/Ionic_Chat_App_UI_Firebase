@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { Observable, of } from 'rxjs';
+
+interface IUsers{
+  id:number,
+  name:string,
+  photoURL:string,
+  time:string
+}
 
 @Component({
   selector: 'app-home',
@@ -7,16 +16,60 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
+  @ViewChild('newChatModal') newChatModal!: ModalController;
+  @ViewChild('popover') popover!: PopoverController;
+
+
+  segment = 'chats'
+  open_new_chat: boolean = false;
+  users$: Observable<IUsers[]> = of([{
+    id: 1,
+    name: 'Kanishka',
+    photoURL: 'https://png.pngtree.com/png-vector/20191104/ourmid/pngtree-businessman-avatar-cartoon-style-png-image_1953664.jpg',
+    time:'10:00'
+  },
+  {
+    id: 2,
+    name: 'Atomlessmind',
+    photoURL: 'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-male-avatar-simple-cartoon-design-png-image_1934458.jpg',
+    time:'08:00'
+ 
+  },
+  {
+    id:3,
+    name:'HotShot',
+    photoURL:'https://www.cssscript.com/wp-content/uploads/2020/12/Customizable-SVG-Avatar-Generator-In-JavaScript-Avataaars.js-150x150.png',
+    time:'06:30',
+ 
+  }])
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  Logout(){
+  Logout() {
+    this.popover.dismiss();
 
   }
-  onSegmentChanged($event:any){
+  onSegmentChanged($event: any) {
 
+  }
+  newChat() {
+
+  }
+
+  closeNewChatModel() {
+  this.newChatModal.dismiss();
+  }
+
+  onWillDismiss(event: Event) {
+
+  }
+
+  swipeEvent(event:any){
+    console.log(event);
+    
   }
 
 }

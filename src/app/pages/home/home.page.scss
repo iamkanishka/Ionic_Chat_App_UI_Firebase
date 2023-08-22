@@ -1,0 +1,36 @@
+ion-header.title-header {
+    font-family: "Satisfy", cursive !important;
+
+    ion-title {
+        letter-spacing: 2px;
+        font-size: 1.8rem !important;
+    }
+    ion-segment{
+        --background: var(--ion-color-primary);
+        ion-segment-button{
+            --color:var(--ion-color-light);
+            --color-checked : #fff;
+        }
+    }
+}
+
+ion-content{
+    ion-list{
+        ion-list-header{
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        ion-item{
+            margin-top: 2wh;
+            ion-label{
+                font-size:1.2 rem;
+                p{
+                    margin-top: 3px;
+                }
+            }
+            ion-text{
+                font-size:0.9rem
+            }
+        }
+    }
+}
