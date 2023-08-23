@@ -41,9 +41,9 @@
     </ion-list-header>
 
     
-    <ng-container *ngFor="let item of  users$ | async">
+    <ng-container *ngFor="let item of  rooms$ | async">
     
-    <ion-item detail>
+    <ion-item (click)="redirecttoChatRoom(item)">
 
       <ion-avatar slot="start">
         <img

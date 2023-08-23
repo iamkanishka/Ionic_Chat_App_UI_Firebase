@@ -9,7 +9,7 @@ const routes: Routes = [
     component: HomePage
   },
   {
-    path: 'chat',
+    path: 'chats/:id/:name',
     loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   }
 ];
