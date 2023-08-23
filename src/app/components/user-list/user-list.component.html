@@ -1,13 +1,6 @@
-<ion-item detail>
-
+<ion-item detail (click)="redirecttoChatRoom()">
   <ion-avatar slot="start">
-    <img
-      [src]="item.photoURL"
-      alt="avatar">
-
+    <img [src]="item.photoURL" alt="avatar">
   </ion-avatar>
-  <ion-label>{{item.name}}
-   
-  </ion-label>
-
+  <ion-label>{{item.name}} </ion-label>
 </ion-item>
