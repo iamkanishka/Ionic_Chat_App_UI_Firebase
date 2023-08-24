@@ -1,0 +1,13 @@
+<ion-item lines="none" [class]="getSlotPostion() ? 'user' : 'sender'">
+  <ion-label [slot]="getSlotPostion() ? 'end': 'start'" class="ion-text-wrap">
+    <ion-text>
+      {{chat?.message}}
+    </ion-text>
+    <ion-note>
+      <!-- <small>{{chat.createdAt?.toDate() | date : 'HH:mm'}}</small> -->
+      <small>10:00AM</small>
+      <ion-icon [color]="getSlotPostion() ? 'light' : 'primary'"
+        name="checkmark-done-outline"></ion-icon>
+    </ion-note>
+  </ion-label>
+</ion-item>
