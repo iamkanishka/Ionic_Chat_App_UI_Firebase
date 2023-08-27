@@ -10,8 +10,10 @@
     </ion-text>
   </ion-label> 
 
-  <form [formGroup]="form">
+  <form [formGroup]="loginForm">
     <ion-list lines="none" class="ion-margin ion-padding ion-text-center">
+   
+
       <ion-item class="ion-margin-vertical">
         <ion-icon 
           name="mail-outline" slot="end" color="medium">
@@ -24,7 +26,7 @@
       <ion-text 
         class="ion-text-left"
         color="danger"
-        *ngIf="!form.get('email')!.valid && form.get('email')!.touched">
+        *ngIf="f['email'].errors && f['email'].touched">
         <p class="error">*Please enter proper Email Address</p>
       </ion-text>
 
@@ -43,38 +45,24 @@
       <ion-text 
         class="ion-text-left"
         color="danger"
-        *ngIf="!form.get('password')!.valid && form.get('password')!.touched">
+        *ngIf="f['password'].errors && f['password'].touched">
         <p 
           class="error" 
-          *ngIf="form.get('password')!.invalid && form.get('password')?.errors && form.get('password')?.errors['required']">
+          *ngIf="f['password'].errors && f['password'].errors['required']">
           *Please enter your Password
         </p>
         <p 
           class="error" 
-          *ngIf="form.get('password')?.dirty">
+          *ngIf="f['password'].dirty">
           *Password must be of atleast 8 characters
         </p>
       </ion-text>
 
-      <!-- <ion-row class="ion-margin-vertical">
-        <ion-col size="6" class="alignItems">
-          <div align=left>
-            <ion-checkbox></ion-checkbox>
-            <ion-note>Remember me</ion-note>
-          </div>
-        </ion-col>
-        <ion-col size="6">
-          <div align=right>
-            <ion-note>Forgot password?</ion-note>
-          </div>
-        </ion-col>
-      </ion-row> -->
-      <ion-button color="primary" shape="round" (click)="onSubmit()">Log In</ion-button>
-      <p class="signup">
-        <ion-note>
-          Not a member yet? <ion-text routerLink="/signup" color="primary">Sign Up</ion-text>
-        </ion-note>
-      </p>
+     
+      <ion-button color="primary" shape="round" (click)="onSubmit()">Log in
+    <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+
+      </ion-button>
     </ion-list>
   </form>
 </ion-content>

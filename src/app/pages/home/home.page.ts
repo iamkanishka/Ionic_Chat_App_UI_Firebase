@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { Observable, of } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 interface IUsers{
   id:number,
@@ -66,13 +67,16 @@ export class HomePage implements OnInit {
  
   }]);
 
-  constructor(private readonly router :Router) { }
+  constructor(private readonly router :Router, private readonly authService:AuthService) { }
 
   ngOnInit() {
   }
 
   Logout() {
-    this.popover.dismiss();
+    this.authService.logout().then(()=>{
+      this.popover.dismiss();
+
+    })
 
   }
   onSegmentChanged($event: any) {

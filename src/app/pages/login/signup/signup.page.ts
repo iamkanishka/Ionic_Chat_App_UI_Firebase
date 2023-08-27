@@ -60,7 +60,7 @@ export class SignupPage implements OnInit {
      console.log(resposne);
 
      this.router.navigate(['/home']);
-     this.presentAlert('User Created Successfully')
+     this.showAlert('User Created Successfully')
      this.signupForm.reset();
    }).catch(e=>{
     console.log(e)
@@ -68,14 +68,14 @@ export class SignupPage implements OnInit {
 
     let msg : string =  `Couldn't Signup, Please try Again`;
     if(e.code==='auth/email-already-in-use'){
-      msg = e.message
+      msg = 'Email is already in Use'
     }
-    this.presentAlert(msg)
+    this.showAlert(msg)
 
    })
   }
 
-  async presentAlert(message:string) {
+  async showAlert(message:string) {
     const alert = await this.alertController.create({
       header: 'Alert',
       //subHeader: 'Important message',
