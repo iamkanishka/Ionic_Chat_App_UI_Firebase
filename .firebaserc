@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "chat-app-f78bb": {
+      "hosting": {
+        "app": [
+          "chat-app-f78bb"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "chat-app-f78bb"
+  }
+}
