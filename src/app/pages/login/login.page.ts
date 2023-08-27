@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginPage   {
   form!: FormGroup;
   isTypePassword: boolean = true;
 
-  constructor() {
+  constructor(private readonly router: Router) {
     this.initForm();
   }
 
@@ -36,8 +37,9 @@ export class LoginPage   {
   }
 
   onSubmit() {
-    if(!this.form.valid) return;
-    console.log(this.form.value);
+    // if(!this.form.valid) return;
+    // console.log(this.form.value);
+    this.router.navigate(['/home'])
   }
 
 }
