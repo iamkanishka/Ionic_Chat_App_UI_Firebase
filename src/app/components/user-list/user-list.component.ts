@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 interface IUsers{
-  id:number,
-  name:string,
-  photoURL:string
+  uid:string,
+  userName:string,
+  photo:string,
+  email:string,
+  password:string
 }
 @Component({
   selector: 'app-user-list',
@@ -14,11 +16,11 @@ export class UserListComponent  implements OnInit {
   @Input() item!:IUsers
   constructor(private readonly router:Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   
   redirecttoChatRoom(){
-    this.router.navigate(['/', 'home', 'chats', this.item.id, this.item.name])
+    this.router.navigate(['/', 'home', 'chats', this.item.uid, this.item.userName],{replaceUrl:true})
  }
 
 
