@@ -27,7 +27,7 @@ export class AuthGuard implements CanLoad {
     }
   }
 
-  navigate(url) {
+  navigate(url:string) {
     this.router.navigateByUrl(url, { replaceUrl: true })
   }
 }

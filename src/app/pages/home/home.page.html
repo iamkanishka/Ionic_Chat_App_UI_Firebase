@@ -40,30 +40,29 @@
       Recent Chats
     </ion-list-header>
 
-    
     <ng-container *ngFor="let item of  rooms$ | async">
-    
-    <ion-item (click)="redirecttoChatRoom(item)">
+      <ng-container *ngIf="(item?.user|async) as user">
 
-      <ion-avatar slot="start">
-        <img
-          [src]="item.photoURL"
-          alt="avatar">
+        <ion-item (click)="redirecttoChatRoomandStartChat(getUser(user))">
 
-      </ion-avatar>
-      <ion-label>{{item.name}}
-        <p>
-          <ion-text>
-            message
+          <ion-avatar slot="start">
+            <img [src]="getUser(user)?.photo" alt="avatar">
+
+          </ion-avatar>
+          <ion-label>{{getUser(user)?.userName}}
+            <p>
+              <ion-text>
+                message
+              </ion-text>
+            </p>
+          </ion-label>
+          <ion-text color="medium" slot="end">
+            {{item.time}}
           </ion-text>
-        </p>
-      </ion-label>
-      <ion-text color="medium" slot="end">
-        {{item.time}}
-      </ion-text>
-    </ion-item>
 
-  </ng-container>
+        </ion-item>
+      </ng-container>
+    </ng-container>
 
 
   </ion-list>
@@ -87,11 +86,11 @@
       </ion-header>
 
       <ion-content color="light">
-        <ion-list  class="ion-margin-top" [style.background]="'transparent'" lines="none">
-        <app-user-list *ngFor="let item of users$|async" [item]="item">
-           
-        </app-user-list>
-          
+        <ion-list class="ion-margin-top" [style.background]="'transparent'" lines="none">
+          <app-user-list *ngFor="let item of users$|async" [item]="item" (click)="redirecttoChatRoomandStartChat(item)">
+
+          </app-user-list>
+
         </ion-list>
       </ion-content>
 

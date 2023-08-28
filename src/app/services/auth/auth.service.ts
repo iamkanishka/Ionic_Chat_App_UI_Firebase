@@ -89,7 +89,7 @@ export class AuthService {
   checkAuth(): Promise<any> {
     return new Promise((resolve, reject) => {
       onAuthStateChanged(this.fireAuth, user => {
-        console.log('auth-user', user);
+      //  console.log('auth-user', user);
         resolve(user)
       })
     })
