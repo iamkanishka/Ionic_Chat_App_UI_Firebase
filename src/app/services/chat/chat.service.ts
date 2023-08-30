@@ -20,23 +20,11 @@ export class ChatService {
 
   getCurrentUserId() {
     this.currentUserId = this.authService.getId();
-    console.log(this.currentUserId);
-
   }
 
   getUsers() {
-    console.log(this.currentUserId);
-
-    return this.fireDataServiceService.collectioDataQuery('users', 
-    this.fireDataServiceService.whereQuery( "uid", "!=",this.currentUserId)
-      )
-      // .pipe(last((user:any)=>{
-      //   console.log(user);
-      //   return null
-      // // return  user.uid != String(this.currentUserId)
-      // }))
-     // .pipe(last())
-
+    return this.fireDataServiceService.collectioDataQuery('users',
+      this.fireDataServiceService.whereQuery("uid", "!=", this.currentUserId))
   }
 
 
@@ -44,36 +32,48 @@ export class ChatService {
     console.log(user_id);
 
     try {
-      let room: any;
-      const querySnapshot = await this.fireDataServiceService.
-        getDocs('chatRooms', this.fireDataServiceService.whereQuery('members', 'in',
-          [[user_id, this.currentUserId], [this.currentUserId, user_id]]
-        ));
+      let room: any[] = [];
+      room = await this.checkRoomExists(user_id)
+        console.log(room);
+        
+      if (room?.length > 0) {
+        return room[0];
+       
+      } 
+      
+      else {
+        const data = {
+          members: [
+            this.currentUserId,
+            user_id
+          ],
+          type: 'private',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }
 
-      room = await querySnapshot.docs.map((doc: any) => {
-        let item = doc.data();
-        item.id = doc.id
-        return item
-      })
-
-      console.log('exist docs', room);
-      if (room?.length > 0) return room[0];
-
-      const data = {
-        members: [
-          this.currentUserId,
-          user_id
-        ],
-        type: 'private',
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        await this.fireDataServiceService.addDocument('chatRooms', data)
+        let createdRoom = await this.checkRoomExists(user_id)
+        return createdRoom[0]
       }
 
-      room = await this.fireDataServiceService.addDocument('chatRooms', data)
-
     } catch (e) {
-
+        console.log(e);
+        
     }
+  }
+
+
+  async checkRoomExists(user_id: string) {
+    const querySnapshot = await this.fireDataServiceService.
+      getDocs('chatRooms', this.fireDataServiceService.whereQuery("members", 'array-contains', user_id ));
+
+    return await querySnapshot.docs.map((doc: any) => {
+      let item = doc.data();
+      item.id = doc.id
+      return item
+    })
+
   }
 
   getChatRooms() {
@@ -81,8 +81,8 @@ export class ChatService {
     return this.fireDataServiceService.collectioDataQuery('chatRooms',
       this.fireDataServiceService.whereQuery('members', 'array-contains', this.currentUserId))
       .pipe(map((data: any[]) => {
-         let rooms = data
-         rooms.map((element, index) => {
+        let rooms = data
+        rooms.map((element, index) => {
           const user_data = element.members.filter((x: any) => x != this.currentUserId);
           console.log(user_data);
           if (user_data.length != 0) {
@@ -90,10 +90,10 @@ export class ChatService {
             user = this.fireDataServiceService.docDataQuery(`users/${user_data[0]}`, true);
             element.user = user
 
-          }else{
-            rooms.splice(index,1)
+          } else {
+            rooms.splice(index, 1)
           }
-    });
+        });
         return rooms
       }),
         switchMap((data: any) => {

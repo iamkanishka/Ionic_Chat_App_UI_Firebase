@@ -33,7 +33,6 @@ export class FireDataServiceService {
     return getDoc(dataRef)
   }
 
-
   collectioDataQuery(path: string, queryFn: QueryFieldFilterConstraint): Observable<any[]> {
     let dataRef: CollectionReference = this.collectionRef(path)
     let dataQuery: Query = query(dataRef, queryFn);
@@ -41,6 +40,10 @@ export class FireDataServiceService {
     return collection_Data
   }
 
+  whereQuery(fieldpath: string, Condition: WhereFilterOp, value: any) {
+    return where(fieldpath, Condition, value)
+  }
+  
 
 
   docDataQuery(path: string, id?: string | boolean, queryFn?: QueryFieldFilterConstraint) : Observable<any>{
@@ -55,9 +58,7 @@ export class FireDataServiceService {
     return doc_data
   }
 
-  whereQuery(fieldpath: string, Condition: WhereFilterOp, value: string | string[][]) {
-    return where(fieldpath, Condition, value)
-  }
+  
 
 
 
